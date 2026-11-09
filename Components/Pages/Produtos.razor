@@ -1,0 +1,71 @@
+@page "/produtos"
+@using AulaApp1.Models
+@rendermode InteractiveServer
+
+<PageTitle>Produtos</PageTitle>
+
+<h3>Cadastro de Produtos</h3>
+
+<EditForm Model="@novoProduto" OnValidSubmit="@CadastrarProduto">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Nome do Produto:</label>
+        <InputText @bind-Value="novoProduto.Nome" class="form-control" />
+        <ValidationMessage For="@(() => novoProduto.Nome)" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Preço (R$):</label>
+        <InputNumber @bind-Value="novoProduto.Preco" class="form-control" />
+        <ValidationMessage For="@(() => novoProduto.Preco)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</EditForm>
+
+<hr />
+
+<h4>Lista de Produtos</h4>
+
+@if (listaProdutos.Count == 0)
+{
+    <div class="alert alert-info">Nenhum produto cadastrado ainda.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in listaProdutos)
+        {
+            <tr>
+                <td>@p.Nome</td>
+                <td>@p.Preco.ToString("C")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Produto novoProduto = new();
+    private List<Produto> listaProdutos = new();
+
+    private void CadastrarProduto()
+    {
+        listaProdutos.Add(new Produto
+        {
+            Nome = novoProduto.Nome,
+            Preco = novoProduto.Preco
+        });
+
+        // Limpa o formulário após validação bem-sucedida
+        novoProduto = new Produto();
+    }
+}

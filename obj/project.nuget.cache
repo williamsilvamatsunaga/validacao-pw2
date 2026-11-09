@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "8oQ0rLaH19o=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\willi\\OneDrive\\Desktop\\IFRO\\PV2\\validacao\\validacao.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\willi\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.14\\microsoft.aspnetcore.app.internal.assets.10.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

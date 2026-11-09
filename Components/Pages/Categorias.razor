@@ -1,0 +1,79 @@
+@page "/categorias"
+@using validacao.Models
+@rendermode InteractiveServer
+
+<PageTitle>Categorias</PageTitle>
+
+<h3>Cadastro de Categorias</h3>
+
+<EditForm Model="@novaCategoria" OnValidSubmit="@CadastrarCategoria">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Nome da Categoria:</label>
+        <InputText @bind-Value="novaCategoria.Nome" class="form-control" />
+        <ValidationMessage For="@(() => novaCategoria.Nome)" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quantidade:</label>
+        <InputNumber @bind-Value="novaCategoria.Quantidade" class="form-control" />
+        <ValidationMessage For="@(() => novaCategoria.Quantidade)" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Código Identificador:</label>
+        <InputText @bind-Value="novaCategoria.CodigoIdentificador" class="form-control" />
+        <ValidationMessage For="@(() => novaCategoria.CodigoIdentificador)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</EditForm>
+
+<hr />
+
+<h4>Lista de Categorias</h4>
+
+@if (listaCategorias.Count == 0)
+{
+    <div class="alert alert-info">Nenhuma categoria cadastrada.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Código</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in listaCategorias)
+            {
+                <tr>
+                    <td>@c.Nome</td>
+                    <td>@c.Quantidade</td>
+                    <td>@c.CodigoIdentificador</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Categoria novaCategoria = new();
+    private List<Categoria> listaCategorias = new();
+
+    private void CadastrarCategoria()
+    {
+        listaCategorias.Add(new Categoria
+        {
+            Nome = novaCategoria.Nome,
+            Quantidade = novaCategoria.Quantidade,
+            CodigoIdentificador = novaCategoria.CodigoIdentificador
+        });
+
+        novaCategoria = new Categoria();
+    }
+}
